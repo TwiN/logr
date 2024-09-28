@@ -50,7 +50,7 @@ func (logger *Logger) Log(level Level, message string) {
 	logger.Logf(level, message)
 }
 
-func (logger *Logger) Logf(level Level, format string, args ...interface{}) {
+func (logger *Logger) Logf(level Level, format string, args ...any) {
 	if level < logger.Threshold {
 		// The log level is below the threshold, so ignore the log
 		return
@@ -74,7 +74,7 @@ func (logger *Logger) Debug(message string) {
 	logger.Log(LevelDebug, message)
 }
 
-func (logger *Logger) Debugf(format string, args ...interface{}) {
+func (logger *Logger) Debugf(format string, args ...any) {
 	logger.Logf(LevelDebug, format, args...)
 }
 
@@ -82,7 +82,7 @@ func (logger *Logger) Info(message string) {
 	logger.Log(LevelInfo, message)
 }
 
-func (logger *Logger) Infof(format string, args ...interface{}) {
+func (logger *Logger) Infof(format string, args ...any) {
 	logger.Logf(LevelInfo, format, args...)
 }
 
@@ -90,7 +90,7 @@ func (logger *Logger) Warn(message string) {
 	logger.Log(LevelWarn, message)
 }
 
-func (logger *Logger) Warnf(format string, args ...interface{}) {
+func (logger *Logger) Warnf(format string, args ...any) {
 	logger.Logf(LevelWarn, format, args...)
 }
 
@@ -98,7 +98,7 @@ func (logger *Logger) Error(message string) {
 	logger.Log(LevelError, message)
 }
 
-func (logger *Logger) Errorf(format string, args ...interface{}) {
+func (logger *Logger) Errorf(format string, args ...any) {
 	logger.Logf(LevelError, format, args...)
 }
 
@@ -112,11 +112,19 @@ func SetThreshold(threshold Level) {
 	defaultLogger.SetThreshold(threshold)
 }
 
+func Log(level Level, message string) {
+	defaultLogger.Log(level, message)
+}
+
+func Logf(level Level, message string, args ...any) {
+	defaultLogger.Logf(level, message, args)
+}
+
 func Debug(message string) {
 	defaultLogger.Log(LevelDebug, message)
 }
 
-func Debugf(format string, args ...interface{}) {
+func Debugf(format string, args ...any) {
 	defaultLogger.Logf(LevelDebug, format, args...)
 }
 
@@ -124,7 +132,7 @@ func Info(message string) {
 	defaultLogger.Log(LevelInfo, message)
 }
 
-func Infof(format string, args ...interface{}) {
+func Infof(format string, args ...any) {
 	defaultLogger.Logf(LevelInfo, format, args...)
 }
 
@@ -132,7 +140,7 @@ func Warn(message string) {
 	defaultLogger.Log(LevelWarn, message)
 }
 
-func Warnf(format string, args ...interface{}) {
+func Warnf(format string, args ...any) {
 	defaultLogger.Logf(LevelWarn, format, args...)
 }
 
@@ -140,6 +148,6 @@ func Error(message string) {
 	defaultLogger.Log(LevelError, message)
 }
 
-func Errorf(format string, args ...interface{}) {
+func Errorf(format string, args ...any) {
 	defaultLogger.Logf(LevelError, format, args...)
 }
