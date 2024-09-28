@@ -19,8 +19,8 @@ func main() {
 
 You can set the default logger's threshold like so:
 ```go
-logr.SetThreshold(logr.WarnLevel)
+logr.SetThreshold(logr.LevelWarn)
 ```
-The above would make it so only `Warn` and `Error` messages are logged, while `Debug` and `Info` messages are ignored.
+The above would make it so only `WARN` and `ERROR` messages are logged, while `DEBUG` and `INFO` messages are ignored.
 
 TODO: Finish documentation
