@@ -1,2 +1,3 @@
-# template
-This is a template repository
+# logr
+Go logging library with levels.
+
