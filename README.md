@@ -2,11 +2,19 @@
 Go logging library with levels.
 
 ## Usage
+```console
+go get -u github.com/TwiN/logr
+```
+
 ```go
-logr.Debug("This is a debug message")
-logr.Infof("This is an %s message", "info")
-logr.Warn("This is a warn message")
-logr.Error("This is an error message")
+import "github.com/TwiN/logr"
+
+func main() {
+    logr.Debug("This is a debug message")
+    logr.Infof("This is an %s message", "info")
+    logr.Warn("This is a warn message")
+    logr.Error("This is an error message")
+}
 ```
 
 You can set the default logger's threshold like so:
