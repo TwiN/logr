@@ -9,20 +9,20 @@ import (
 var defaultLogger = New(LevelInfo, false, os.Stdout)
 
 type Logger struct {
-	// Threshold is the minimum level output by this logger.
+	// threshold is the minimum level output by this logger.
 	//
-	// For example, if the Threshold is set to LevelWarn, then only logs of LevelWarn and LevelError will be output
+	// For example, if the threshold is set to LevelWarn, then only logs of LevelWarn and LevelError will be output
 	// while logs of LevelDebug and LevelInfo will be ignored.
 	//
 	// Defaults to LevelInfo.
-	Threshold Level
+	threshold Level
 
-	// ShouldPrefixMessageWithLevel is whether to include the log level prefix in each log.
+	// shouldPrefixMessageWithLevel is whether to include the log level prefix in each log.
 	//
 	// For example, if this is set to true, then a debug log would output "<date> DEBUG <message>"
 	//
 	// Defaults to false.
-	ShouldPrefixMessageWithLevel bool
+	shouldPrefixMessageWithLevel bool
 
 	stdLogger *log.Logger
 }
@@ -30,8 +30,8 @@ type Logger struct {
 // New creates a new logger with the given threshold and output.
 func New(threshold Level, shouldPrefixMessageWithLevel bool, output io.Writer) *Logger {
 	return &Logger{
-		Threshold:                    threshold,
-		ShouldPrefixMessageWithLevel: shouldPrefixMessageWithLevel,
+		threshold:                    threshold,
+		shouldPrefixMessageWithLevel: shouldPrefixMessageWithLevel,
 		stdLogger:                    log.New(output, "", log.LstdFlags),
 	}
 }
@@ -43,7 +43,11 @@ func (logger *Logger) SetOutput(output io.Writer) {
 }
 
 func (logger *Logger) SetThreshold(threshold Level) {
-	logger.Threshold = threshold
+	logger.threshold = threshold
+}
+
+func (logger *Logger) GetThreshold() Level {
+	return logger.threshold
 }
 
 func (logger *Logger) Log(level Level, message string) {
@@ -51,11 +55,11 @@ func (logger *Logger) Log(level Level, message string) {
 }
 
 func (logger *Logger) Logf(level Level, format string, args ...any) {
-	if level < logger.Threshold {
+	if level < logger.threshold {
 		// The log level is below the threshold, so ignore the log
 		return
 	}
-	if logger.ShouldPrefixMessageWithLevel {
+	if logger.shouldPrefixMessageWithLevel {
 		switch level {
 		case LevelDebug:
 			format = "- DEBUG - " + format
@@ -110,6 +114,10 @@ func SetOutput(output io.Writer) {
 // SetThreshold sets the minimum level output by the default logger
 func SetThreshold(threshold Level) {
 	defaultLogger.SetThreshold(threshold)
+}
+
+func GetThreshold() Level {
+	return defaultLogger.GetThreshold()
 }
 
 func Log(level Level, message string) {
