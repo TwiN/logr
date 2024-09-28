@@ -133,3 +133,13 @@ func Error(message string) {
 func Errorf(format string, args ...interface{}) {
 	defaultLogger.Logf(LevelError, format, args...)
 }
+
+// SetOutput sets the output of the default logger
+func SetOutput(output io.Writer) {
+	defaultLogger.SetOutput(output)
+}
+
+// SetThreshold sets the minimum level output by the default logger
+func SetThreshold(threshold Level) {
+	defaultLogger.SetThreshold(threshold)
+}
