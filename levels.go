@@ -33,6 +33,10 @@ func (level Level) Value() int {
 	}
 }
 
+func (level Level) IsValid() bool {
+	return level.Value() != -1
+}
+
 func LevelFromString(level string) (Level, error) {
 	switch strings.ToUpper(level) {
 	case "DEBUG":

@@ -29,6 +29,9 @@ type Logger struct {
 
 // New creates a new logger with the given threshold and output.
 func New(threshold Level, shouldPrefixMessageWithLevel bool, output io.Writer) *Logger {
+	if !threshold.IsValid() {
+		threshold = LevelInfo // Default to LevelInfo if the threshold is invalid
+	}
 	return &Logger{
 		threshold:                    threshold,
 		shouldPrefixMessageWithLevel: shouldPrefixMessageWithLevel,
@@ -43,7 +46,11 @@ func (logger *Logger) SetOutput(output io.Writer) {
 }
 
 func (logger *Logger) SetThreshold(threshold Level) {
-	logger.threshold = threshold
+	if !threshold.IsValid() {
+		threshold = LevelInfo // Default to LevelInfo if the threshold is invalid
+	} else {
+		logger.threshold = threshold
+	}
 }
 
 func (logger *Logger) GetThreshold() Level {

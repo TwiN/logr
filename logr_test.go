@@ -6,6 +6,13 @@ import (
 	"testing"
 )
 
+func TestNew(t *testing.T) {
+	logger := New("what", false, nil)
+	if logger.threshold != LevelInfo {
+		t.Error("expected invalid threshold to be silently set to INFO, got", logger.threshold)
+	}
+}
+
 func TestLogger(t *testing.T) {
 	var writer bytes.Buffer
 	logger := New(LevelWarn, false, &writer)
