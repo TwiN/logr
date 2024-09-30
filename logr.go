@@ -55,21 +55,12 @@ func (logger *Logger) Log(level Level, message string) {
 }
 
 func (logger *Logger) Logf(level Level, format string, args ...any) {
-	if level < logger.threshold {
+	if level.Value() < logger.threshold.Value() {
 		// The log level is below the threshold, so ignore the log
 		return
 	}
 	if logger.shouldPrefixMessageWithLevel {
-		switch level {
-		case LevelDebug:
-			format = "- DEBUG - " + format
-		case LevelInfo:
-			format = "- INFO - " + format
-		case LevelWarn:
-			format = "- WARN - " + format
-		case LevelError:
-			format = "- ERROR - " + format
-		}
+		format = "- " + string(level) + " - " + format
 	}
 	logger.stdLogger.Printf(format, args...)
 }

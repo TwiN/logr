@@ -18,14 +18,14 @@ func TestLevelFromString(t *testing.T) {
 		{"warn", LevelWarn, nil},
 		{"ERROR", LevelError, nil},
 		{"error", LevelError, nil},
-		{"", 0, ErrInvalidLevelString},
-		{"invalid", 0, ErrInvalidLevelString},
+		{"", LevelDebug, ErrInvalidLevelString},
+		{"invalid", LevelDebug, ErrInvalidLevelString},
 	}
 	for _, scenario := range scenarios {
 		t.Run(scenario.input, func(t *testing.T) {
 			actual, err := LevelFromString(scenario.input)
 			if actual != scenario.expected {
-				t.Errorf("expected %d, got %d", scenario.expected, actual)
+				t.Errorf("expected %s, got %s", scenario.expected, actual)
 			}
 			if err != scenario.expectedErr {
 				t.Errorf("expected %v, got %v", scenario.expectedErr, err)
