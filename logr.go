@@ -138,33 +138,41 @@ func Logf(level Level, message string, args ...any) {
 }
 
 func Debug(message string) {
-	defaultLogger.Log(LevelDebug, message)
+	defaultLogger.Debug(message)
 }
 
 func Debugf(format string, args ...any) {
-	defaultLogger.Logf(LevelDebug, format, args...)
+	defaultLogger.Debugf(format, args...)
 }
 
 func Info(message string) {
-	defaultLogger.Log(LevelInfo, message)
+	defaultLogger.Info(message)
 }
 
 func Infof(format string, args ...any) {
-	defaultLogger.Logf(LevelInfo, format, args...)
+	defaultLogger.Infof(format, args...)
 }
 
 func Warn(message string) {
-	defaultLogger.Log(LevelWarn, message)
+	defaultLogger.Warn(message)
 }
 
 func Warnf(format string, args ...any) {
-	defaultLogger.Logf(LevelWarn, format, args...)
+	defaultLogger.Warnf(format, args...)
 }
 
 func Error(message string) {
-	defaultLogger.Log(LevelError, message)
+	defaultLogger.Error(message)
 }
 
 func Errorf(format string, args ...any) {
-	defaultLogger.Logf(LevelError, format, args...)
+	defaultLogger.Errorf(format, args...)
+}
+
+func Fatal(message string) {
+	defaultLogger.Fatal(message)
+}
+
+func Fatalf(format string, args ...any) {
+	defaultLogger.Fatalf(format, args...)
 }
