@@ -70,6 +70,9 @@ func (logger *Logger) Logf(level Level, format string, args ...any) {
 		format = "- " + string(level) + " - " + format
 	}
 	logger.stdLogger.Printf(format, args...)
+	if level == LevelFatal {
+		os.Exit(1)
+	}
 }
 
 func (logger *Logger) Debug(message string) {
@@ -102,6 +105,14 @@ func (logger *Logger) Error(message string) {
 
 func (logger *Logger) Errorf(format string, args ...any) {
 	logger.Logf(LevelError, format, args...)
+}
+
+func (logger *Logger) Fatal(message string) {
+	logger.Log(LevelFatal, message)
+}
+
+func (logger *Logger) Fatalf(format string, args ...any) {
+	logger.Logf(LevelFatal, format, args...)
 }
 
 // SetOutput sets the output of the default logger
