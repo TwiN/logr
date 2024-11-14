@@ -12,10 +12,11 @@ const (
 	LevelInfo  Level = "INFO"
 	LevelWarn  Level = "WARN"
 	LevelError Level = "ERROR"
+	LevelFatal Level = "FATAL"
 )
 
 var (
-	ErrInvalidLevelString = errors.New("invalid level, must be one of DEBUG, INFO, WARN or ERROR")
+	ErrInvalidLevelString = errors.New("invalid level, must be one of DEBUG, INFO, WARN, ERROR or FATAL")
 )
 
 func (level Level) Value() int {
@@ -28,6 +29,8 @@ func (level Level) Value() int {
 		return 2
 	case LevelError:
 		return 3
+	case LevelFatal:
+		return 4
 	default:
 		return -1
 	}
@@ -47,6 +50,8 @@ func LevelFromString(level string) (Level, error) {
 		return LevelWarn, nil
 	case "ERROR":
 		return LevelError, nil
+	case "FATAL":
+		return LevelFatal, nil
 	default:
 		return LevelDebug, ErrInvalidLevelString
 	}
