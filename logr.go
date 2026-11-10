@@ -125,6 +125,18 @@ func SetThreshold(threshold Level) {
 	defaultLogger.SetThreshold(threshold)
 }
 
+// SetShouldPrefixMessageWithLevel sets whether messages emitted by the default logger
+// should be prefixed with their level (e.g. "- INFO - ...")
+func SetShouldPrefixMessageWithLevel(shouldPrefixMessageWithLevel bool) {
+	defaultLogger.shouldPrefixMessageWithLevel = shouldPrefixMessageWithLevel
+}
+
+// GetShouldPrefixMessageWithLevel returns whether messages emitted by the default logger
+// are prefixed with their level
+func GetShouldPrefixMessageWithLevel() bool {
+	return defaultLogger.shouldPrefixMessageWithLevel
+}
+
 func GetThreshold() Level {
 	return defaultLogger.GetThreshold()
 }
