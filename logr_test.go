@@ -2,6 +2,7 @@ package logr
 
 import (
 	"bytes"
+	"os"
 	"strings"
 	"testing"
 )
@@ -71,5 +72,30 @@ func TestLoggerFormatting(t *testing.T) {
 	}
 	if !strings.Contains(output, "- ERROR - John sent CAD$69.10 to Jane") {
 		t.Error("expected '- ERROR - John sent USD$123.40 to Jane', got", output)
+	}
+}
+
+func TestSetShouldPrefixMessageWithLevel(t *testing.T) {
+	var writer bytes.Buffer
+	defer SetOutput(os.Stdout)
+	SetOutput(&writer)
+
+	SetShouldPrefixMessageWithLevel(true)
+	if !GetShouldPrefixMessageWithLevel() {
+		t.Error("expected GetShouldPrefixMessageWithLevel() to be true, got false")
+	}
+	Info("this is info")
+	if output := writer.String(); !strings.Contains(output, "- INFO - this is info") {
+		t.Error("expected '- INFO - this is info', got", output)
+	}
+
+	writer.Reset()
+	SetShouldPrefixMessageWithLevel(false)
+	if GetShouldPrefixMessageWithLevel() {
+		t.Error("expected GetShouldPrefixMessageWithLevel() to be false, got true")
+	}
+	Info("this is info")
+	if output := writer.String(); strings.Contains(output, "- INFO -") {
+		t.Error("expected no level prefix, got", output)
 	}
 }
